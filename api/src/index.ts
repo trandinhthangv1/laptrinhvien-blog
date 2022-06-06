@@ -1,16 +1,11 @@
-import express, { Request, Response } from 'express';
-import config from '@config/index';
+import 'dotenv/config';
+import app from '@config/express';
+import mongoDb from '@config/mongo-db';
 
-const main = (): void => {
-  const app = express();
+const PORT = (process.env.PORT as string) || 8000;
 
-  app.get('/', (req: Request, res: Response) => {
-    res.json(config);
-  });
+mongoDb.connect();
 
-  app.listen(process.env.PORT || 8000, () => {
-    console.log('server is listening at http://localhost:8000');
-  });
-};
-
-main();
+app.listen(PORT, () => {
+  console.log(`App listening at http://localhost:${PORT}`);
+});

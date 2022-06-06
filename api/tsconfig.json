@@ -46,8 +46,16 @@
 
     /* Paths */
     "paths": {
-      "@config/*": ["src/config/*"]
-    } /* Specify a set of entries that re-map imports to additional lookup locations. */
+      "@config/*": ["src/config/*"],
+      "@routes/*": ["src/routes/*"],
+      "@controllers/*": ["src/controllers/*"],
+      "@services/*": ["src/services/*"],
+      "@middlewares/*": ["src/middlewares/*"],
+      "@models/*": ["src/models/*"],
+      "@utils/*": ["src/utils/*"],
+      "@constants/*": ["src/constants/*"]
+    } /* Specify a set of entries that re-map imports to additional lookup locations. */,
+    "typeRoots": ["./types"]
   },
   "exclude": ["node_modules"],
   "include": ["src/**/*.ts"]
