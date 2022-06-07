@@ -5,7 +5,7 @@ import User from '@models/user.model';
 import { RegisterUser } from './interfaces/auth.interface';
 
 const registerUser = async (data: RegisterUser) => {
-  const { username, password, avatar, role } = data;
+  const { username, password, avatar, role, displayName } = data;
   const userExist = await User.findOne({ username });
 
   if (userExist) {
@@ -16,6 +16,7 @@ const registerUser = async (data: RegisterUser) => {
 
   const user = await User.create({
     username,
+    displayName,
     avatar,
     role,
     password: hashPassword,
@@ -24,6 +25,7 @@ const registerUser = async (data: RegisterUser) => {
   return {
     _id: user._id,
     username: user.username,
+    displayName: user.displayName,
     avatar: user.avatar,
     role: user.role,
   };
@@ -49,6 +51,7 @@ const login = async (username: string, password: string) => {
   return {
     _id: user._id,
     username: user.username,
+    displayName: user.displayName,
     avatar: user.avatar,
     role: user.role,
     token: accessToken,

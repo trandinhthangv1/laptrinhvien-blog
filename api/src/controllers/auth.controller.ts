@@ -6,6 +6,12 @@ import ErrorRes from '@utils/error-handle';
 
 const registerUser = async (req: Request, res: Response) => {
   try {
+    const { username, displayName, password, role } = req.body;
+    const isValidBody = username && displayName && password && role;
+
+    if (!isValidBody) {
+      throw { statusCode: 400, message: AUTH_MESSAGE.miss_info };
+    }
     const user = await authService.registerUser(req.body);
 
     return new SuccessRes(res, AUTH_MESSAGE.create_success, user, 200);
@@ -16,6 +22,13 @@ const registerUser = async (req: Request, res: Response) => {
 
 const login = async (req: Request, res: Response) => {
   try {
+    const { username, password } = req.body;
+    const isValidBody = username && password;
+
+    if (!isValidBody) {
+      throw { statusCode: 400, message: AUTH_MESSAGE.miss_info };
+    }
+
     const user = await authService.login(req.body.username, req.body.password);
 
     return new SuccessRes(res, AUTH_MESSAGE.login_success, user, 200);
