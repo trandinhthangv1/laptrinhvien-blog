@@ -16,8 +16,8 @@ const getOneById = async (req: Request, res: Response) => {
 
 const getAll = async (req: Request, res: Response) => {
   try {
-    const { topic, page, limit } = req.params;
-    const topics = await postService.getAll(topic, Number(page), Number(limit));
+    const { topic, page, limit } = req.query;
+    const topics = await postService.getAll(topic as string, Number(page), Number(limit));
     return new SuccessResponse(res, POST_MESSAGE.get_all_success, topics, 200);
   } catch (error: any) {
     return new ErrorResponse(res, error.message || error, error.statusCode);

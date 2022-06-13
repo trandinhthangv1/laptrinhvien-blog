@@ -7,11 +7,13 @@ const getOneById = async (id: string) => {
   return post;
 };
 
-const getAll = async (topic: string, page: number, limit: number) => {
+const getAll = async (topic: string, page: number = 1, limit: number = 10) => {
   const postCount = await Post.find({ topicId: topic }).count();
   const posts = await Post.find({ topicId: topic })
     .limit(limit)
-    .skip(limit * page);
+    .skip(limit * (page - 1))
+    .sort({ createdAt: 'desc' });
+
   return { count: postCount, posts };
 };
 
